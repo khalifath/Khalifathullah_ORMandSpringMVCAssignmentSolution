@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.gl.customer.entity.Customer;
 
-
 @Repository
 public class CustomerServiceImpl implements CustomerService {
 
@@ -23,9 +22,8 @@ public class CustomerServiceImpl implements CustomerService {
 	private Session session;
 
 	@Autowired
-	CustomerServiceImpl(SessionFactory sessionFactory)
-	{
-		this.sessionFactory=sessionFactory;
+	CustomerServiceImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 		try {
 			session = sessionFactory.getCurrentSession();
 		} catch (HibernateException e) {
@@ -35,9 +33,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	@Transactional
-	public List < Customer > getCustomers() {
+	public List<Customer> getCustomers() {
 		Transaction tx = session.beginTransaction();
-		List<Customer> customer=session.createQuery("from Customer").list();
+		List<Customer> customer = session.createQuery("from Customer").list();
 		tx.commit();
 		return customer;
 	}

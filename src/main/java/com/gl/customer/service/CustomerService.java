@@ -6,11 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.gl.customer.entity.Customer;
 
-
 @Service
 public interface CustomerService {
 
-	public List < Customer > getCustomers();
+	public List<Customer> getCustomers();
 
 	public void saveCustomer(Customer theCustomer);
 

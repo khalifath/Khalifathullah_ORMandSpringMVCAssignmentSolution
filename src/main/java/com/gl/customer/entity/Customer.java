@@ -63,8 +63,8 @@ public class Customer {
 
 	public Customer(String fname, String lname, String email) {
 		super();
-		this.firstName=fname;
-		this.lastName =lname;
+		this.firstName = fname;
+		this.lastName = lname;
 		this.email = email;
 	}
 

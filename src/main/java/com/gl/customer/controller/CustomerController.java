@@ -10,48 +10,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gl.customer.entity.Customer;
 import com.gl.customer.service.CustomerService;
 
-
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 
-	CustomerController(){
+	CustomerController() {
 		System.out.println("CONTROLLER CONSTRUCTOR CALLED");
 	}
-	
-    @Autowired
-    private CustomerService customerService;
 
-    @RequestMapping("/list")
-    public String listCustomers(Model theModel) {
-    	System.out.println("LIST METHOD CALLED..........");
-        List < Customer > theCustomers = customerService.getCustomers();
-        theModel.addAttribute("customer", theCustomers);
-        return "list-customers";
-    }
+	@Autowired
+	private CustomerService customerService;
 
-    @RequestMapping("/showForm")
-    public String showFormForAdd(Model theModel) {
-        Customer theCustomer = new Customer();
-        theModel.addAttribute("customer", theCustomer);
-        return "customer-form";
-    }
+	@RequestMapping("/list")
+	public String listCustomers(Model theModel) {
+		System.out.println("LIST METHOD CALLED..........");
+		List<Customer> theCustomers = customerService.getCustomers();
+		theModel.addAttribute("customer", theCustomers);
+		return "list-customers";
+	}
 
-    @PostMapping("/saveCustomer")
-    public String saveCustomer(@RequestParam("id") int id,
-			@RequestParam("firstName") String firstName,@RequestParam("lastName") String lastName,@RequestParam("email") String email) {
+	@RequestMapping("/showForm")
+	public String showFormForAdd(Model theModel) {
+		Customer theCustomer = new Customer();
+		theModel.addAttribute("customer", theCustomer);
+		return "customer-form";
+	}
+
+	@PostMapping("/saveCustomer")
+	public String saveCustomer(@RequestParam("id") int id, @RequestParam("firstName") String firstName,
+			@RequestParam("lastName") String lastName, @RequestParam("email") String email) {
 
 		System.out.println(id);
 		Customer customer;
-		if(id!=0)
-		{
-			customer=customerService.getCustomer(id);
+		if (id != 0) {
+			customer = customerService.getCustomer(id);
 			customer.setFirstName(firstName);
 			customer.setLastName(lastName);
 			customer.setEmail(email);
-		}
-		else
-			customer=new Customer(firstName, lastName, email);
+		} else
+			customer = new Customer(firstName, lastName, email);
 
 		// save the Customer
 		customerService.saveCustomer(customer);
@@ -60,34 +57,16 @@ public class CustomerController {
 
 	}
 
-    @RequestMapping("/updateForm")
-    public String showFormForUpdate(@RequestParam("customerId") int theId,
-        Model theModel) {
-        Customer theCustomer = customerService.getCustomer(theId);
-        theModel.addAttribute("customer", theCustomer);
-        return "customer-form";
-    }
+	@RequestMapping("/updateForm")
+	public String showFormForUpdate(@RequestParam("customerId") int theId, Model theModel) {
+		Customer theCustomer = customerService.getCustomer(theId);
+		theModel.addAttribute("customer", theCustomer);
+		return "customer-form";
+	}
 
-    @RequestMapping("/delete")
-    public String deleteCustomer(@RequestParam("customerId") int theId) {
-        customerService.deleteCustomer(theId);
-        return "redirect:/customer/list";
-    }
+	@RequestMapping("/delete")
+	public String deleteCustomer(@RequestParam("customerId") int theId) {
+		customerService.deleteCustomer(theId);
+		return "redirect:/customer/list";
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
